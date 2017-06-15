@@ -28,26 +28,26 @@ public enum Operator {
             return input1 - input2;
         }
     },
-    CONSTANT{
+    CONSTANT {
         @Override
         public int Operate(int input1, int input2) {
             return 0;
         }
     },
-    COLLECTIVE_INTEGER_FETCH{
+    COLLECTIVE_INTEGER_FETCH {
         @Override
         public int Operate(int input1, int input2) {
-            try{
+            try {
                 return (int) CollectivePool.IntegerCollective.get(input1);
             } catch (IndexOutOfBoundsException e) {
                 return 0;
             }
         }
     },
-    COLLECTIVE_INTEGER_ADD{
+    COLLECTIVE_INTEGER_ADD {
         @Override
         public int Operate(int input1, int input2) {
-            try{
+            try {
                 CollectivePool.IntegerCollective.add(input1, input2);
                 return 0;
             } catch (IndexOutOfBoundsException e) {
@@ -55,10 +55,10 @@ public enum Operator {
             }
         }
     },
-    COLLECTIVE_INTEGER_SET{
+    COLLECTIVE_INTEGER_SET {
         @Override
         public int Operate(int input1, int input2) {
-            try{
+            try {
                 CollectivePool.IntegerCollective.set(input1, input2);
                 return 0;
             } catch (IndexOutOfBoundsException e) {
@@ -66,5 +66,6 @@ public enum Operator {
             }
         }
     };
+
     public abstract int Operate(int input1, int input2);
 }

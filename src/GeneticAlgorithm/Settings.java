@@ -5,8 +5,14 @@ package GeneticAlgorithm;
  */
 public enum Settings {
     DEFAULT_NODE_WIDTH(3),
-    DEFAULT_NODE_DEPTH(3),
-    CANDIDATE_COUNT(1000);
+    DEFAULT_NODE_DEPTH(30),
+    CANDIDATE_COUNT(1000),
+    MAXIMUM_CONSTANT_VALUE(100),
+    /* Mutation Probability takes the form 1/x where x is the setting value */
+    MUTATE_NODE_FORM(10),
+    MUTATE_NODE_CONSTANT(25),
+    MUTATE_NODE_SOURCES(25);
+
 
     private final int value;
 
@@ -14,5 +20,7 @@ public enum Settings {
         this.value = newValue;
     }
 
-    public int getValue() { return this.value; }
+    public int getValue() {
+        return this.value;
+    }
 }

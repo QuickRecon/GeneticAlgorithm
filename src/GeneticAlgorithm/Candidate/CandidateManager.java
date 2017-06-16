@@ -11,13 +11,27 @@ public class CandidateManager {
     private ArrayList<Candidate> Candidates;
 
     public void PrepareCandidates() {
-        this.Candidates = new ArrayList<Candidate>();
+        Candidates = new ArrayList<Candidate>();
         for (int i = 0; i < Settings.CANDIDATE_COUNT.getValue(); i++) {
-            this.Candidates.add(new Candidate());
-            this.Candidates.get(i).StartSet = new ArrayList();
-            this.Candidates.get(i).StartSet.add(3);
-            this.Candidates.get(i).StartSet.add(8);
-            this.Candidates.get(i).ConfigureCandidate();
+            Candidates.add(new Candidate());
+            Candidates.get(i).StartSet = new ArrayList();
+            Candidates.get(i).StartSet.add(3);
+            Candidates.get(i).StartSet.add(8);
+            Candidates.get(i).Cycle = 1;
+            Candidates.get(i).ConfigureCandidate();
         }
+    }
+
+    public void RunCandidates(){
+        for(int i = 0; i < Candidates.size(); i++){
+            Candidate Candidate = Candidates.get(i);
+            if(Candidate.Cycle < Candidate.Lifetime){
+                ArrayList Dataset = Candidate.RunCandidate();
+            }
+        }
+    }
+
+    public void DefineFittness(ArrayList StartList, ArrayList EndList){
+
     }
 }

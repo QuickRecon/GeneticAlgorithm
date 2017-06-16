@@ -10,45 +10,48 @@ import java.util.Random;
  */
 public class Candidate {
     protected int Fitness;
+    public int Cycle;
+    public final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
     private ArrayList<ArrayList<Node>> Nodes;
     public ArrayList StartSet;
     public ArrayList CurrentSet;
 
     public void ConfigureCandidate() {
-        this.Nodes = new ArrayList<ArrayList<Node>>();
+        Nodes = new ArrayList<ArrayList<Node>>();
         for (int i = 0; i < Settings.DEFAULT_NODE_DEPTH.getValue(); i++) {
 
             this.Nodes.add(i, new ArrayList<Node>());
 
             for (int j = 0; j < Settings.DEFAULT_NODE_WIDTH.getValue(); j++) {
-                this.Nodes.get(i).add(j, new Node());
-                this.Nodes.get(i).get(j).ConfigureNode();
-                this.Nodes.get(i).get(j).DataPool = this.StartSet;
-                this.Nodes.get(i).get(j).ConfigureSources();
+                Nodes.get(i).add(j, new Node());
+                Nodes.get(i).get(j).ConfigureNode();
+                Nodes.get(i).get(j).DataPool = this.StartSet;
+                Nodes.get(i).get(j).ConfigureSources();
             }
         }
     }
 
     public ArrayList RunCandidate() {
-        for (int i = 0; i < this.Nodes.size(); i++) {
-            for (int j = 0; j < this.Nodes.get(i).size(); j++) {
-                Node CurrentNode = this.Nodes.get(i).get(j);
+        for (int i = 0; i < Nodes.size(); i++) {
+            for (int j = 0; j < Nodes.get(i).size(); j++) {
+                Node CurrentNode = Nodes.get(i).get(j);
                 if (i == 0) {
-                    CurrentNode.DataPool = this.StartSet;
+                    CurrentNode.DataPool = StartSet;
                 } else {
-                    CurrentNode.DataPool = this.CurrentSet;
+                    CurrentNode.DataPool = CurrentSet;
                 }
-                this.CurrentSet.clear();
-                this.CurrentSet.add(j, CurrentNode.ExecuteNode());
+                CurrentSet.clear();
+                CurrentSet.add(j, CurrentNode.ExecuteNode());
             }
         }
-        return this.CurrentSet;
+        Cycle += 1;
+        return CurrentSet;
     }
 
     public void Mutate() {
-        for (int i = 0; i < this.Nodes.size(); i++) {
-            for (int j = 0; j < this.Nodes.size(); j++) {
-                Node Node = this.Nodes.get(i).get(j);
+        for (int i = 0; i < Nodes.size(); i++) {
+            for (int j = 0; j < Nodes.size(); j++) {
+                Node Node = Nodes.get(i).get(j);
                 if (1 == new Random().nextInt(Settings.MUTATE_NODE_CONSTANT.getValue())) {
                     Node.SetConstant(new Random().nextInt(Settings.MAXIMUM_CONSTANT_VALUE.getValue()));
                 }

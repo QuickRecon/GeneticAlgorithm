@@ -17,27 +17,27 @@ public class Node {
     private int Constant;
 
     public int ExecuteNode() {
-        int input1 = (int) this.DataPool.get(this.DataPoolIndices[0]);
-        int input2 = (int) this.DataPool.get(this.DataPoolIndices[1]);
-        if (this.Mode == Operator.CONSTANT) {
-            return this.Constant;
+        int input1 = (int) DataPool.get(DataPoolIndices[0]);
+        int input2 = (int) DataPool.get(DataPoolIndices[1]);
+        if (Mode == Operator.CONSTANT) {
+            return Constant;
         } else {
-            return this.Mode.Operate(input1, input2);
+            return Mode.Operate(input1, input2);
         }
     }
 
     public void ConfigureNode() {
         int index = new Random().nextInt(Operator.values().length);
-        this.Mode = Operator.values()[index];
-        if (this.Mode == Operator.CONSTANT) {
-            this.SetConstant(new Random().nextInt(255));
+        Mode = Operator.values()[index];
+        if (Mode == Operator.CONSTANT) {
+            SetConstant(new Random().nextInt(255));
         }
     }
 
     public void ConfigureSources() {
-        this.DataPoolIndices = new int[2];
-        this.DataPoolIndices[0] = new Random().nextInt(this.DataPool.size());
-        this.DataPoolIndices[1] = new Random().nextInt(this.DataPool.size());
+        DataPoolIndices = new int[2];
+        DataPoolIndices[0] = new Random().nextInt(DataPool.size());
+        DataPoolIndices[1] = new Random().nextInt(DataPool.size());
     }
 
     public void SetConstant(int Constant) {

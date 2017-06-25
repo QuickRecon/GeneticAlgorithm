@@ -8,8 +8,9 @@ import java.util.Random;
 /**
  * Created by aren on 10/06/17.
  */
+
 public class Candidate {
-    protected int Fitness;
+    protected double Fitness;
     public int Cycle;
     public final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
     private ArrayList<ArrayList<Node>> Nodes;
@@ -63,5 +64,9 @@ public class Candidate {
                 }
             }
         }
+    }
+
+    public double GetFitness(){
+        return Fitness;
     }
 }

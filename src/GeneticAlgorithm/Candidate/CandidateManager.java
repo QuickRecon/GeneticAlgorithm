@@ -1,7 +1,6 @@
 package GeneticAlgorithm.Candidate;
 
 import GeneticAlgorithm.Settings;
-import com.sun.xml.internal.ws.policy.spi.PolicyAssertionValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,9 +47,9 @@ public class CandidateManager {
         Collections.sort(Candidates, comparing(Candidate::GetFitness));
         Collections.reverse(Candidates);
         System.out.print("Generation: " + Generation + "\n");
-        System.out.print("Max: " + Candidates.get(0).Fitness + "\n");
+        /*System.out.print("Max: " + Candidates.get(0).Fitness + "\n");
         System.out.print("Average: " + AverageFitness() + "\n");
-        System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");
+        System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");*/
     }
 
     public void Reproduce(){

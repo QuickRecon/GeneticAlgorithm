@@ -1,8 +1,8 @@
 package GeneticAlgorithm.Candidate;
 
 import GeneticAlgorithm.Settings;
+import com.sun.xml.internal.ws.policy.spi.PolicyAssertionValidator;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import static java.util.Comparator.comparing;
@@ -32,21 +32,31 @@ public class CandidateManager {
             Candidate Candidate = Candidates.get(i);
             if(Candidate.Cycle < Candidate.Lifetime){
                 ArrayList Dataset = Candidate.RunCandidate();
-                DefineFittness(Candidate, Candidate.StartSet, Dataset);
-                SortCandidates();
+                DefineFitness(Candidate, Candidate.StartSet, Dataset);
             }
         }
     }
 
-    public void DefineFittness(Candidate Candidate, ArrayList StartList, ArrayList EndList){
+    public void DefineFitness(Candidate Candidate, ArrayList StartList, ArrayList EndList){
         // y = 10*log(x)*sin(10x)
-        Candidate.Fitness = 10*(Math.log( (double) EndList.get(0)))*(Math.sin(10 * (double) EndList.get(0)));
+        Candidate.Fitness = 10*(Math.log( (double) (int) EndList.get(0)))*(Math.sin(10 * (double) (int) EndList.get(0)));
+        if(Double.isNaN(Candidate.Fitness)){Candidate.Fitness = 0;}
     }
 
     public void SortCandidates(){
         Collections.sort(Candidates, comparing(Candidate::GetFitness));
-        System.out.print("Generation" + Generation);
-        System.out.print("Max:" + Candidates.get(0).Fitness);
-        System.out.print("Min:" + Candidates.get(Candidates.size()-1).Fitness);
+        Collections.reverse(Candidates);
+        System.out.print("Generation: " + Generation + "\n");
+        System.out.print("Max: " + Candidates.get(0).Fitness + "\n");
+        System.out.print("Average: " + AverageFitness() + "\n");
+        System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");
+    }
+
+    private double AverageFitness(){
+        double sum = 0;
+        for(int i = 0; i < Candidates.size(); i++){
+            sum += Candidates.get(i).Fitness;
+        }
+        return sum/Candidates.size();
     }
 }

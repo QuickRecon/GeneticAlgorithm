@@ -1,5 +1,5 @@
 package GeneticAlgorithm.Candidate;
-
+import GeneticAlgorithm.Candidate.CollectivePool;
 /**
  * Created by aren on 15/06/17.
  */
@@ -19,6 +19,7 @@ public enum Operator {
     DIVIDE {
         @Override
         public int Operate(int input1, int input2) {
+            if(input2 == 0){return 1;}
             return input1 / input2;
         }
     },
@@ -38,8 +39,8 @@ public enum Operator {
         @Override
         public int Operate(int input1, int input2) {
             try {
-                return (int) CollectivePool.IntegerCollective.get(input1);
-            } catch (IndexOutOfBoundsException e) {
+                return CollectivePool.Get(input1);
+            } catch (NullPointerException e) {
                 return 0;
             }
         }
@@ -48,9 +49,9 @@ public enum Operator {
         @Override
         public int Operate(int input1, int input2) {
             try {
-                CollectivePool.IntegerCollective.add(input1, input2);
+                CollectivePool.Add(input1);
                 return 0;
-            } catch (IndexOutOfBoundsException e) {
+            } catch (NullPointerException e) {
                 return 1;
             }
         }
@@ -59,9 +60,9 @@ public enum Operator {
         @Override
         public int Operate(int input1, int input2) {
             try {
-                CollectivePool.IntegerCollective.set(input1, input2);
+                CollectivePool.Set(input1, input2);
                 return 0;
-            } catch (IndexOutOfBoundsException e) {
+            } catch (NullPointerException e) {
                 return 1;
             }
         }

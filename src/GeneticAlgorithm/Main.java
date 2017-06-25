@@ -9,6 +9,8 @@ public class Main {
     public static void main(String[] args) {
         CandidateManager CandidateManager = new CandidateManager();
         CandidateManager.PrepareCandidates();
+        CandidateManager.RunCandidates();
+        CandidateManager.SortCandidates();
         System.out.print("done");
     }
 }

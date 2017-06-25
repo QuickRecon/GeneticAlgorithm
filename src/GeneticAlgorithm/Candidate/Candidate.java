@@ -33,16 +33,17 @@ public class Candidate {
     }
 
     public ArrayList RunCandidate() {
+        CurrentSet = new ArrayList(StartSet);
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Node CurrentNode = Nodes.get(i).get(j);
                 if (i == 0) {
-                    CurrentNode.DataPool = StartSet;
+                    CurrentNode.DataPool = new ArrayList(StartSet);
                 } else {
-                    CurrentNode.DataPool = CurrentSet;
+                    CurrentNode.DataPool = new ArrayList(CurrentSet);
                 }
                 CurrentSet.clear();
-                CurrentSet.add(j, CurrentNode.ExecuteNode());
+                CurrentSet.add(CurrentNode.ExecuteNode());
             }
         }
         Cycle += 1;

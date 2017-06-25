@@ -11,7 +11,7 @@ import static java.util.Comparator.comparing;
  * Created by aren on 10/06/17.
  */
 public class CandidateManager {
-    private ArrayList<Candidate> Candidates;
+    public ArrayList<Candidate> Candidates;
     public int Generation = 0;
 
     public void PrepareCandidates() {

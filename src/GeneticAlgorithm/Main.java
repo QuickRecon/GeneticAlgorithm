@@ -7,6 +7,7 @@ import GeneticAlgorithm.Candidate.CandidateManager;
  */
 public class Main {
     public static void main(String[] args) {
+        CSVWriter CSVWriter = new CSVWriter("output");
         CandidateManager CandidateManager = new CandidateManager();
         CandidateManager.PrepareCandidates();
         for(int i = 0; i < Settings.GENERATIONS.getValue(); i++){
@@ -14,6 +15,7 @@ public class Main {
             CandidateManager.RunCandidates();
             CandidateManager.SortCandidates();
             CandidateManager.Reproduce();
+            CSVWriter.WriteGeneration(CandidateManager.Candidates);
         }
         System.out.print("done");
     }

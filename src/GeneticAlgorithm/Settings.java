@@ -11,9 +11,9 @@ public enum Settings {
     CANDIDATE_LIFETIME(400),
     GENERATIONS(10000),
     /* Mutation Probability takes the form 1/x where x is the setting value */
-    MUTATE_NODE_FORM(10),
-    MUTATE_NODE_CONSTANT(25),
-    MUTATE_NODE_SOURCES(25);
+    MUTATE_NODE_FORM(4),
+    MUTATE_NODE_CONSTANT(1),
+    MUTATE_NODE_SOURCES(1);
 
 
     private final int value;

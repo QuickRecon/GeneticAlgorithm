@@ -9,6 +9,7 @@ public enum Settings {
     CANDIDATE_COUNT(100),
     MAXIMUM_CONSTANT_VALUE(100),
     CANDIDATE_LIFETIME(400),
+    GENERATIONS(10000),
     /* Mutation Probability takes the form 1/x where x is the setting value */
     MUTATE_NODE_FORM(10),
     MUTATE_NODE_CONSTANT(25),

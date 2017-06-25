@@ -12,7 +12,7 @@ import static java.util.Comparator.comparing;
  */
 public class CandidateManager {
     private ArrayList<Candidate> Candidates;
-    private int Generation = 0;
+    public int Generation = 0;
 
     public void PrepareCandidates() {
         Candidates = new ArrayList<Candidate>();
@@ -39,7 +39,8 @@ public class CandidateManager {
 
     public void DefineFitness(Candidate Candidate, ArrayList StartList, ArrayList EndList){
         // y = 10*log(x)*sin(10x)
-        Candidate.Fitness = 10*(Math.log( (double) (int) EndList.get(0)))*(Math.sin(10 * (double) (int) EndList.get(0)));
+        //TODO make line not horrible
+        Candidate.Fitness = 10*(Math.log( (double) (int) EndList.get(0)))*(Math.sin((double) (int) EndList.get(0)));
         if(Double.isNaN(Candidate.Fitness)){Candidate.Fitness = 0;}
     }
 
@@ -50,6 +51,14 @@ public class CandidateManager {
         System.out.print("Max: " + Candidates.get(0).Fitness + "\n");
         System.out.print("Average: " + AverageFitness() + "\n");
         System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");
+    }
+
+    public void Reproduce(){
+        Candidates.subList(Candidates.size()/2, Candidates.size()).clear();
+        for(int i = 0; i < (Settings.CANDIDATE_COUNT.getValue()/2); i++){
+            Candidates.add(Candidates.get(i));
+            Candidates.get(i).Mutate();
+        }
     }
 
     private double AverageFitness(){

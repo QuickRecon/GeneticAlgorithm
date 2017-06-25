@@ -36,8 +36,13 @@ public class Node {
 
     public void ConfigureSources() {
         DataPoolIndices = new int[2];
-        DataPoolIndices[0] = new Random().nextInt(DataPool.size()-2);
-        DataPoolIndices[1] = new Random().nextInt(DataPool.size()-2);
+        try {
+            DataPoolIndices[0] = new Random().nextInt(DataPool.size() - 2);
+            DataPoolIndices[1] = new Random().nextInt(DataPool.size() - 2);
+        } catch (IllegalArgumentException e){
+            DataPoolIndices[0] = 0;
+            DataPoolIndices[1] = 0;
+        }
     }
 
     public void SetConstant(int Constant) {

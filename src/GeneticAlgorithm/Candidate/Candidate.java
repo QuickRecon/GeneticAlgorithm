@@ -12,6 +12,7 @@ import java.util.Random;
 public class Candidate {
     protected double Fitness;
     public int Cycle;
+    //TODO Implement Lifetimes
     public final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
     private ArrayList<ArrayList<Node>> Nodes;
     public ArrayList StartSet;
@@ -51,8 +52,8 @@ public class Candidate {
     }
 
     public void Mutate() {
-        for (int i = 0; i < Nodes.size(); i++) {
-            for (int j = 0; j < Nodes.size(); j++) {
+        for (int i = 0; i < Nodes.size()-1; i++) {
+            for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Node Node = Nodes.get(i).get(j);
                 if (1 == new Random().nextInt(Settings.MUTATE_NODE_CONSTANT.getValue())) {
                     Node.SetConstant(new Random().nextInt(Settings.MAXIMUM_CONSTANT_VALUE.getValue()));

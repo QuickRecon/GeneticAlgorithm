@@ -9,8 +9,12 @@ public class Main {
     public static void main(String[] args) {
         CandidateManager CandidateManager = new CandidateManager();
         CandidateManager.PrepareCandidates();
-        CandidateManager.RunCandidates();
-        CandidateManager.SortCandidates();
+        for(int i = 0; i < Settings.GENERATIONS.getValue(); i++){
+            CandidateManager.Generation++;
+            CandidateManager.RunCandidates();
+            CandidateManager.SortCandidates();
+            CandidateManager.Reproduce();
+        }
         System.out.print("done");
     }
 }

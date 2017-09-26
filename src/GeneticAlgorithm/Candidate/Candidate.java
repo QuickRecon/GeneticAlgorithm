@@ -11,14 +11,13 @@ import java.util.Random;
 
 public class Candidate {
     //TODO Implement Lifetimes
-    public final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
-    public int Cycle;
-    public ArrayList StartSet;
-    public ArrayList CurrentSet;
-    protected double Fitness;
+    final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
+    int Cycle;
+    ArrayList StartSet;
+    double Fitness;
     private ArrayList<ArrayList<Node>> Nodes;
 
-    public void ConfigureCandidate() {
+    void ConfigureCandidate() {
         Nodes = new ArrayList<ArrayList<Node>>();
         for (int i = 0; i < Settings.DEFAULT_NODE_DEPTH.getValue(); i++) {
 
@@ -33,25 +32,25 @@ public class Candidate {
         }
     }
 
-    public ArrayList RunCandidate() {
-        CurrentSet = new ArrayList(StartSet);
+    ArrayList RunCandidate() {
+        ArrayList currentSet = new ArrayList(StartSet);
         for (int i = 0; i < Nodes.size(); i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Node CurrentNode = Nodes.get(i).get(j);
                 if (i == 0) {
                     CurrentNode.DataPool = new ArrayList(StartSet);
                 } else {
-                    CurrentNode.DataPool = new ArrayList(CurrentSet);
+                    CurrentNode.DataPool = new ArrayList(currentSet);
                 }
-                CurrentSet.clear();
-                CurrentSet.add(CurrentNode.ExecuteNode());
+                currentSet.clear();
+                currentSet.add(CurrentNode.ExecuteNode());
             }
         }
         Cycle += 1;
-        return CurrentSet;
+        return currentSet;
     }
 
-    public void Mutate() {
+    void Mutate() {
         for (int i = 0; i < Nodes.size() - 1; i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Node Node = Nodes.get(i).get(j);

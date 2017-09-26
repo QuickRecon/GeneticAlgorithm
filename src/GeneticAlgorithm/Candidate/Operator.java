@@ -1,7 +1,5 @@
 package GeneticAlgorithm.Candidate;
 
-import GeneticAlgorithm.Candidate.CollectivePool;
-
 /**
  * Created by aren on 15/06/17.
  */

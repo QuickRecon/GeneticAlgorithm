@@ -7,15 +7,15 @@ import java.util.Random;
 /**
  * Created by Aren on 10/06/17.
  */
-public class Node {
+class Node {
 
-    public ArrayList DataPool;
+    ArrayList DataPool;
     private Operator Mode;
     private int[] DataPoolIndices;
 
     private int Constant;
 
-    public int ExecuteNode() {
+    int ExecuteNode() {
         int input1 = (int) DataPool.get(DataPoolIndices[0]);
         int input2 = (int) DataPool.get(DataPoolIndices[1]);
         if (Mode == Operator.CONSTANT) {
@@ -25,7 +25,7 @@ public class Node {
         }
     }
 
-    public void ConfigureNode() {
+    void ConfigureNode() {
         int index = new Random().nextInt(Operator.values().length);
         Mode = Operator.values()[index];
         if (Mode == Operator.CONSTANT) {
@@ -33,7 +33,7 @@ public class Node {
         }
     }
 
-    public void ConfigureSources() {
+    void ConfigureSources() {
         DataPoolIndices = new int[2];
         try {
             DataPoolIndices[0] = new Random().nextInt(DataPool.size() - 2);
@@ -44,7 +44,7 @@ public class Node {
         }
     }
 
-    public void SetConstant(int Constant) {
+    void SetConstant(int Constant) {
         this.Constant = Constant;
     }
 }

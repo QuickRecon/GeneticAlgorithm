@@ -1,16 +1,14 @@
 package GeneticAlgorithm;
 
-import GeneticAlgorithm.Candidate.Candidate;
 import GeneticAlgorithm.Candidate.CandidateManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by aren on 25/06/17.
  */
-public class CSVWriter {
+class CSVWriter {
     private String filename;
     private FileWriter file;
 
@@ -24,7 +22,7 @@ public class CSVWriter {
         }
     }
 
-    public void WriteGeneration(CandidateManager candidateManager) {
+    void WriteGeneration(CandidateManager candidateManager) {
         try {
             file.append(candidateManager.AverageFitness() + "," + candidateManager.MaxFitness() + "," + candidateManager.MinFitness());
             for (int i = 0; i < candidateManager.Candidates.size(); i++) {

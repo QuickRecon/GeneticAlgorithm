@@ -16,7 +16,7 @@ public class CandidateManager {
     public int Generation = 0;
 
     public void PrepareCandidates() {
-        Candidates = new ArrayList<Candidate>();
+        Candidates = new ArrayList<>();
         for (int i = 0; i < Settings.CANDIDATE_COUNT.getValue(); i++) {
             Candidates.add(new Candidate());
             Candidates.get(i).StartSet = new ArrayList();
@@ -39,9 +39,10 @@ public class CandidateManager {
     }
 
     public void SortCandidates() {
-        Collections.sort(Candidates, comparing(Candidate::GetFitness));
+        Candidates.sort(comparing(Candidate::GetFitness));
         Collections.reverse(Candidates);
         System.out.print("Generation: " + Generation + "\n");
+        // TODO Impliment the below method in the CSVWriter
         /*System.out.print("Max: " + Candidates.get(0).Fitness + "\n");
         System.out.print("Average: " + AverageFitness() + "\n");
         System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");*/

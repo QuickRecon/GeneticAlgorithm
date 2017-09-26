@@ -4,6 +4,8 @@ import GeneticAlgorithm.Settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
 import static java.util.Comparator.comparing;
 
 /**
@@ -18,29 +20,22 @@ public class CandidateManager {
         for (int i = 0; i < Settings.CANDIDATE_COUNT.getValue(); i++) {
             Candidates.add(new Candidate());
             Candidates.get(i).StartSet = new ArrayList();
-            Candidates.get(i).StartSet.add(1);
-            Candidates.get(i).StartSet.add(2);
-            Candidates.get(i).StartSet.add(3);
+            Candidates.get(i).StartSet.add(0);
             Candidates.get(i).Cycle = 1;
             Candidates.get(i).ConfigureCandidate();
         }
     }
 
     public void RunCandidates(){
-        for(int i = 0; i < Candidates.size(); i++){
-            Candidate Candidate = Candidates.get(i);
-            if(Candidate.Cycle < Candidate.Lifetime){
+        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
+            if (Candidate.Cycle < Candidate.Lifetime) {
+                int datapoint = new Random().nextInt();
+                Candidate.StartSet.set(0,datapoint);
                 ArrayList Dataset = Candidate.RunCandidate();
-                DefineFitness(Candidate, Candidate.StartSet, Dataset);
+                double actual = Math.sin(datapoint);
+                Candidate.Fitness = actual - (int) Dataset.get(0);
             }
         }
-    }
-
-    public void DefineFitness(Candidate Candidate, ArrayList StartList, ArrayList EndList){
-        // y = 10*log(x)*sin(10x)
-        //TODO make line not horrible
-        Candidate.Fitness = 10*(Math.log( (double) (int) EndList.get(0)))*(Math.sin((double) (int) EndList.get(0)));
-        if(Double.isNaN(Candidate.Fitness)){Candidate.Fitness = 0;}
     }
 
     public void SortCandidates(){
@@ -60,11 +55,31 @@ public class CandidateManager {
         }
     }
 
-    private double AverageFitness(){
+    public double AverageFitness(){
         double sum = 0;
-        for(int i = 0; i < Candidates.size(); i++){
-            sum += Candidates.get(i).Fitness;
+        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
+            sum += Candidate.Fitness;
         }
         return sum/Candidates.size();
+    }
+
+    public double MaxFitness(){
+        double max = 0;
+        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
+            if (Candidate.Fitness > max) {
+                max = Candidate.Fitness;
+            }
+        }
+        return max;
+    }
+
+    public double MinFitness(){
+        double min = Candidates.get(0).Fitness;
+        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates){
+            if (Candidate.Fitness < min){
+                min = Candidate.Fitness;
+            }
+        }
+        return min;
     }
 }

@@ -15,7 +15,7 @@ public class Main {
             CandidateManager.RunCandidates();
             CandidateManager.SortCandidates();
             CandidateManager.Reproduce();
-            CSVWriter.WriteGeneration(CandidateManager.Candidates);
+            CSVWriter.WriteGeneration(CandidateManager);
         }
         System.out.print("done");
     }

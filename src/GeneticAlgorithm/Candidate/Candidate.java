@@ -15,7 +15,7 @@ public class Candidate {
     int Cycle;
     ArrayList StartSet;
     double Fitness;
-    private ArrayList<ArrayList<Node>> Nodes;
+    ArrayList<ArrayList<Node>> Nodes;
 
     void ConfigureCandidate() {
         Nodes = new ArrayList<ArrayList<Node>>();

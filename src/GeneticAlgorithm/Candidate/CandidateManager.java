@@ -2,6 +2,7 @@ package GeneticAlgorithm.Candidate;
 
 import GeneticAlgorithm.Settings;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -27,13 +28,22 @@ public class CandidateManager {
     }
 
     public void RunCandidates() {
+        int Samplesize = Settings.SAMPLESIZE.getValue();
+        ArrayList<Double> Sample = new ArrayList<Double>();
         for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
-            if (Candidate.Cycle < Candidate.Lifetime) {
-                int datapoint = new Random().nextInt();
-                Candidate.StartSet.set(0, datapoint);
-                ArrayList Dataset = Candidate.RunCandidate();
-                double actual = Math.sin(datapoint);
-                Candidate.Fitness = actual - (int) Dataset.get(0);
+            if (/*Candidate.Cycle < Candidate.Lifetime*/ true) {
+                for (int i = 0; i < Samplesize; i++) {
+                    int datapoint = new Random().nextInt();
+                    Candidate.StartSet.set(0, datapoint);
+                    ArrayList Dataset = Candidate.RunCandidate();
+                    double actual = 1000 * Math.sin(Math.toRadians(datapoint));
+                    Sample.add(Math.abs(1 / (actual - (int) Dataset.get(0))));
+                }
+                double sum = 0;
+                for (Double aSample : Sample) {
+                    sum += aSample;
+                }
+                Candidate.Fitness = sum / Samplesize;
             }
         }
     }
@@ -50,9 +60,15 @@ public class CandidateManager {
 
     public void Reproduce() {
         Candidates.subList(Candidates.size() / 2, Candidates.size()).clear();
+        int half = Settings.CANDIDATE_COUNT.getValue() / 2;
         for (int i = 0; i < (Settings.CANDIDATE_COUNT.getValue() / 2); i++) {
-            Candidates.add(Candidates.get(i));
-            Candidates.get(i).Mutate();
+            Candidates.add(new Candidate());
+            Candidates.get(i + half).StartSet = new ArrayList();
+            Candidates.get(i + half).StartSet.add(0);
+            Candidates.get(i + half).Cycle = 1;
+            Candidates.get(i + half).ConfigureCandidate();
+            Candidates.get(i + half).Nodes = Candidates.get(i).Nodes;
+            Candidates.get(i + half).Mutate();
         }
     }
 

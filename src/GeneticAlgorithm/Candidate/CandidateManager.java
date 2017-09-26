@@ -26,11 +26,11 @@ public class CandidateManager {
         }
     }
 
-    public void RunCandidates(){
+    public void RunCandidates() {
         for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
             if (Candidate.Cycle < Candidate.Lifetime) {
                 int datapoint = new Random().nextInt();
-                Candidate.StartSet.set(0,datapoint);
+                Candidate.StartSet.set(0, datapoint);
                 ArrayList Dataset = Candidate.RunCandidate();
                 double actual = Math.sin(datapoint);
                 Candidate.Fitness = actual - (int) Dataset.get(0);
@@ -38,7 +38,7 @@ public class CandidateManager {
         }
     }
 
-    public void SortCandidates(){
+    public void SortCandidates() {
         Collections.sort(Candidates, comparing(Candidate::GetFitness));
         Collections.reverse(Candidates);
         System.out.print("Generation: " + Generation + "\n");
@@ -47,23 +47,23 @@ public class CandidateManager {
         System.out.print("Min: " + Candidates.get(Candidates.size()-1).Fitness + "\n");*/
     }
 
-    public void Reproduce(){
-        Candidates.subList(Candidates.size()/2, Candidates.size()).clear();
-        for(int i = 0; i < (Settings.CANDIDATE_COUNT.getValue()/2); i++){
+    public void Reproduce() {
+        Candidates.subList(Candidates.size() / 2, Candidates.size()).clear();
+        for (int i = 0; i < (Settings.CANDIDATE_COUNT.getValue() / 2); i++) {
             Candidates.add(Candidates.get(i));
             Candidates.get(i).Mutate();
         }
     }
 
-    public double AverageFitness(){
+    public double AverageFitness() {
         double sum = 0;
         for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
             sum += Candidate.Fitness;
         }
-        return sum/Candidates.size();
+        return sum / Candidates.size();
     }
 
-    public double MaxFitness(){
+    public double MaxFitness() {
         double max = 0;
         for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
             if (Candidate.Fitness > max) {
@@ -73,10 +73,10 @@ public class CandidateManager {
         return max;
     }
 
-    public double MinFitness(){
+    public double MinFitness() {
         double min = Candidates.get(0).Fitness;
-        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates){
-            if (Candidate.Fitness < min){
+        for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
+            if (Candidate.Fitness < min) {
                 min = Candidate.Fitness;
             }
         }

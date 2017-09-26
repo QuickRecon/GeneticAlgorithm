@@ -10,7 +10,7 @@ public class Main {
         CSVWriter CSVWriter = new CSVWriter("output");
         CandidateManager CandidateManager = new CandidateManager();
         CandidateManager.PrepareCandidates();
-        for(int i = 0; i < Settings.GENERATIONS.getValue(); i++){
+        for (int i = 0; i < Settings.GENERATIONS.getValue(); i++) {
             CandidateManager.Generation++;
             CandidateManager.RunCandidates();
             CandidateManager.SortCandidates();

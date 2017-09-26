@@ -24,16 +24,16 @@ public class CSVWriter {
         }
     }
 
-    public void WriteGeneration(CandidateManager candidateManager){
+    public void WriteGeneration(CandidateManager candidateManager) {
         try {
-            file.append(candidateManager.AverageFitness()+ "," + candidateManager.MaxFitness() + "," + candidateManager.MinFitness());
+            file.append(candidateManager.AverageFitness() + "," + candidateManager.MaxFitness() + "," + candidateManager.MinFitness());
             for (int i = 0; i < candidateManager.Candidates.size(); i++) {
                 file.append(',');
                 double fitness = candidateManager.Candidates.get(i).GetFitness();
                 file.append(Double.toString(fitness));
             }
             file.append('\n');
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.print("IO Exception \n");
         }
     }

@@ -9,9 +9,8 @@ import java.util.Random;
  */
 public class Node {
 
-    private Operator Mode;
-
     public ArrayList DataPool;
+    private Operator Mode;
     private int[] DataPoolIndices;
 
     private int Constant;
@@ -39,7 +38,7 @@ public class Node {
         try {
             DataPoolIndices[0] = new Random().nextInt(DataPool.size() - 2);
             DataPoolIndices[1] = new Random().nextInt(DataPool.size() - 2);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             DataPoolIndices[0] = 0;
             DataPoolIndices[1] = 0;
         }

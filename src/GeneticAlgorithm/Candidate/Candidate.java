@@ -10,13 +10,13 @@ import java.util.Random;
  */
 
 public class Candidate {
-    protected double Fitness;
-    public int Cycle;
     //TODO Implement Lifetimes
     public final int Lifetime = Settings.CANDIDATE_LIFETIME.getValue();
-    private ArrayList<ArrayList<Node>> Nodes;
+    public int Cycle;
     public ArrayList StartSet;
     public ArrayList CurrentSet;
+    protected double Fitness;
+    private ArrayList<ArrayList<Node>> Nodes;
 
     public void ConfigureCandidate() {
         Nodes = new ArrayList<ArrayList<Node>>();
@@ -52,7 +52,7 @@ public class Candidate {
     }
 
     public void Mutate() {
-        for (int i = 0; i < Nodes.size()-1; i++) {
+        for (int i = 0; i < Nodes.size() - 1; i++) {
             for (int j = 0; j < Nodes.get(i).size(); j++) {
                 Node Node = Nodes.get(i).get(j);
                 if (1 == new Random().nextInt(Settings.MUTATE_NODE_CONSTANT.getValue())) {
@@ -68,7 +68,7 @@ public class Candidate {
         }
     }
 
-    public double GetFitness(){
+    public double GetFitness() {
         return Fitness;
     }
 }

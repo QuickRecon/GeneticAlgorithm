@@ -1,5 +1,7 @@
 package GeneticAlgorithm.Candidate;
+
 import GeneticAlgorithm.Candidate.CollectivePool;
+
 /**
  * Created by aren on 15/06/17.
  */
@@ -19,7 +21,9 @@ public enum Operator {
     DIVIDE {
         @Override
         public int Operate(int input1, int input2) {
-            if(input2 == 0){return 1;}
+            if (input2 == 0) {
+                return 1;
+            }
             return input1 / input2;
         }
     },

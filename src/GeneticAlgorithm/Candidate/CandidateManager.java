@@ -31,9 +31,9 @@ public class CandidateManager {
         int Samplesize = Settings.SAMPLESIZE.getValue();
         ArrayList<Double> Sample = new ArrayList<Double>();
         for (GeneticAlgorithm.Candidate.Candidate Candidate : Candidates) {
-            if (/*Candidate.Cycle < Candidate.Lifetime*/ true) {
+            if (Candidate.Cycle < Candidate.Lifetime) {
                 for (int i = 0; i < Samplesize; i++) {
-                    int datapoint = new Random().nextInt();
+                    int datapoint = new Random().nextInt(Settings.SAMPLEMAX.getValue());
                     Candidate.StartSet.set(0, datapoint);
                     ArrayList Dataset = Candidate.RunCandidate();
                     double actual = 1000 * Math.sin(Math.toRadians(datapoint));
